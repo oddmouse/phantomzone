@@ -1,0 +1,184 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+svg {
+  fill: currentColor;
+  display: inline-block;
+}
+
+.bg,
+.space {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: opacity 0.6s linear;
+}
+
+.space {
+  background-color: #000;
+  perspective: 1000px;
+  perspective-origin: 50% 25%;
+  transform: translate3d(0, 0, 1000px);
+}
+
+.phantom {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  transform-style: preserve-3d;
+}
+
+.zone {
+  transform-origin: 200px 150px;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  z-index: 3;
+}
+
+.zone__loop {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.zone__front,
+.zone__back,
+.zone__top,
+.zone__bottom,
+.zone__right,
+.zone__left {
+  background: rgba(255, 255, 255, 0.667);
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.zone__front,
+.zone__back {
+  background: rgba(0, 0, 0, 0.667);
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.zone__top,
+.zone__bottom {
+  width: 400px;
+  height: 6px;
+}
+
+.zone__right,
+.zone__left {
+  width: 6px;
+  height: 300px;
+}
+
+.zone__front {
+  transform: rotateY(0deg) translateZ(3px);
+}
+
+.zone__back {
+  transform: rotateY(180deg) translateZ(3px);
+}
+
+.zone__top {
+  transform: rotateX(90deg) translateZ(3px);
+}
+
+.zone__right {
+  transform: rotateY(90deg) translateZ(397px);
+}
+
+.zone__bottom {
+  transform: rotateX(-90deg) translateZ(297px);
+}
+
+.zone__left {
+  transform: rotateY(-90deg) translateZ(3px);
+}
+
+.button {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0);
+  display: inline-block;
+  color: #fff;
+  outline: none;
+  padding: 1rem;
+  text-align: center;
+}
+
+.button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.button__label {
+  pointer-events: none;
+}
+
+.button:not(.button--active) .icon__on,
+.button--active .icon__off,
+.button--hidden {
+  display: none;
+}
+
+.button--hover {
+  background-color: rgba(255, 255, 255, 1);
+  color: #000;
+}
+
+.icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.footer {
+  font-size: 0.625rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0.65;
+  padding: 1vw 2vw;
+  transform: translate3d(0, 0, 2000px);
+}
+
+.footer a {
+  backface-visibility: hidden;
+  color: inherit;
+  text-decoration: none;
+}
