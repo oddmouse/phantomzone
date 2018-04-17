@@ -1,11 +1,5 @@
 (function phantomzone(global) {
-  const {
-    document,
-    window,
-    navigator,
-    Image,
-    XMLHttpRequest,
-  } = global;
+  const { document, window, navigator, Image, XMLHttpRequest } = global;
 
   const bg = document.querySelector('.bg');
   const bgButton = document.querySelector('.button__bg');
@@ -13,7 +7,8 @@
   const interval = 1000 / 60;
   const phantom = document.querySelector('.phantom');
   const space = document.querySelector('.space');
-  const unsplash = 'https://api.unsplash.com/photos/random?collections=766908&client_id=94d06293992d3e99b67bbba490dff95dd8c5274b540c8460846c41d9f00b0beb';
+  const unsplash =
+    'https://api.unsplash.com/photos/random?collections=766908&client_id=94d06293992d3e99b67bbba490dff95dd8c5274b540c8460846c41d9f00b0beb';
   const videos = document.querySelectorAll('.zone__loop');
   const zone = document.querySelector('.zone');
   const zoneButton = document.querySelector('.button__zone');
@@ -34,16 +29,17 @@
   let x = 0;
   let y = 0;
 
-  navigator.getUserMedia = navigator.getUserMedia ||
+  navigator.getUserMedia =
+    navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia;
 
   function updatePosition() {
-    const distX = pointerX - (bounds.width * 0.5);
-    const distY = pointerY - (bounds.height * 0.5);
+    const distX = pointerX - bounds.width * 0.5;
+    const distY = pointerY - bounds.height * 0.5;
 
-    rotateY = (rotateY + ((distX * 0.005) / scale)) % 360;
-    rotateX = (rotateX - ((distY * 0.005) / scale)) % 360;
+    rotateY = (rotateY + distX * 0.005 / scale) % 360;
+    rotateX = (rotateX - distY * 0.005 / scale) % 360;
 
     x += -distX * 0.0005;
     y += -distY * 0.0005;
@@ -66,7 +62,7 @@
 
     if (elapsed > interval) {
       animating = true;
-      then = now - (elapsed % interval);
+      then = now - elapsed % interval;
       updatePosition();
     }
   }
@@ -74,7 +70,7 @@
   function mediaStreamConnected(stream) {
     mediaStream = stream;
 
-    videos.forEach((el) => {
+    videos.forEach(el => {
       const video = el;
       video.srcObject = mediaStream;
     });
@@ -89,14 +85,18 @@
 
   function mediaStreamStart() {
     if (navigator.getUserMedia) {
-      navigator.getUserMedia({ video: true }, mediaStreamConnected, mediaStreamError);
+      navigator.getUserMedia(
+        { video: true },
+        mediaStreamConnected,
+        mediaStreamError
+      );
     }
   }
 
   function mediaStreamStop() {
     const tracks = mediaStream.getVideoTracks();
 
-    tracks.forEach((el) => {
+    tracks.forEach(el => {
       const track = el;
       track.stop();
       mediaStream.removeTrack(track);
@@ -104,11 +104,10 @@
 
     mediaStream = null;
 
-    videos.forEach((el) => {
+    videos.forEach(el => {
       const video = el;
       video.srcObject = null;
       video.play();
-      // console.log(video.src);
     });
 
     zoneButton.classList.remove('button--active');
@@ -138,7 +137,11 @@
 
   function updateBackgroundAttributes(user) {
     credit.innerHTML = user.username
-      ? `/ <a href="https://unsplash.com/@${user.username}?utm_source=phantomzone&utm_medium=referral&utm_campaign=api-credit" target="_blank" rel="noopener noreferrer">Photo by ${user.name}</a> / <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a>`
+      ? `/ <a href="https://unsplash.com/@${
+          user.username
+        }?utm_source=phantomzone&utm_medium=referral&utm_campaign=api-credit" target="_blank" rel="noopener noreferrer">Photo by ${
+          user.name
+        }</a> / <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a>`
       : `/ Photo by ${user.name}`;
   }
 
@@ -172,8 +175,8 @@
     landscape = bounds.width > bounds.height;
     scale = (landscape ? bounds.height / zoneH : bounds.width / zoneW) * 0.5;
 
-    x = (bounds.width * 0.5) - (zoneW * 0.5);
-    y = (bounds.height * 0.5) - (zoneH * 0.5);
+    x = bounds.width * 0.5 - zoneW * 0.5;
+    y = bounds.height * 0.5 - zoneH * 0.5;
   }
 
   function onClickBgButton() {
@@ -181,9 +184,7 @@
   }
 
   function onClickZoneButton() {
-    return mediaStream != null
-      ? mediaStreamStop()
-      : mediaStreamStart();
+    return mediaStream != null ? mediaStreamStop() : mediaStreamStart();
   }
 
   function onMouseOverButton(e) {
@@ -234,4 +235,4 @@
   getBackground();
   updateBounds();
   animate();
-}(this));
+})(this);
